@@ -1,35 +1,51 @@
-import {useMediaQuery} from "react-responsive";
-import {useGSAP} from "@gsap/react";
-import gsap from 'gsap';
+import { useMediaQuery } from "react-responsive";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const Showcase = () => {
-    const isTablet = useMediaQuery({ query: '(max-width: 1024px)'});
+    const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
 
     useGSAP(() => {
-        if(!isTablet){
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#showcase',
-                    start:'top top',
-                    end: 'bottom top',
-                    scrub: true,
-                    pin: true,
-                }
-            });
+            if (!isTablet) {
+                const timeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#showcase",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                        pin: true,
+                        scroller: window,
+            },
+                });
 
-            timeline
-                .to('.mask img', {
-                    transform: 'scale(1.1)'
-                }).to('.content', { opacity: 1, y: 0, ease: 'power1.in' });
-        }
-    }, [isTablet])
+                timeline
+                    .to(".mask img", {
+                        scale: 1.05, // subtle zoom instead of huge matrix
+                        ease: "power1.out",
+                    })
+                    .to(".content", { opacity: 1, y: 0, ease: "power1.in" });
+            }
+        },
+        [isTablet]
+    );
 
     return (
-        <section id="showcase">
-            <div className="media">
-                <video src="/videos/game.mp4" loop muted autoPlay playsInline />
-                <div className="mask">
-                    <img src="/mask-logo.svg" />
+        <section id="showcase" className="relative min-h-[150vh] overflow-hidden">
+            <div className="media relative overflow-hidden">
+                <video
+                    src="/videos/game.mp4"
+                    loop
+                    muted
+                    autoPlay
+                    playsInline
+                    className="w-full object-cover object-center"
+                />
+                <div className="mask absolute top-0 h-full overflow-hidden">
+                    <img
+                        src="/mask-logo.svg"
+                        className="h-full w-full object-cover scale-100"
+                        alt="Mask"
+                    />
                 </div>
             </div>
 
@@ -47,7 +63,7 @@ const Showcase = () => {
                                 . M4 powers
                             </p>
                             <p>
-                               It drives Apple Intelligence on iPad pro, so you can write,create, and accomplish more with ease. All in a design that's unbelievably thin,light, and powerful.
+                                It drives Apple Intelligence on iPad pro, so you can write,create, and accomplish more with ease. All in a design that's unbelievably thin,light, and powerful.
                             </p>
                             <p>
                                 A brand-new display engine delivers breathtaking precision,color accuracy, and brightness. And a next-gen GPU with hardware-accelerated ray tracing brings console-level graphics to your fingertips.
@@ -71,6 +87,7 @@ const Showcase = () => {
                 </div>
             </div>
         </section>
-    )
-}
-export default Showcase
+    );
+};
+
+export default Showcase;
