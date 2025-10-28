@@ -30,7 +30,7 @@ const Showcase = () => {
     );
 
     return (
-        <section id="showcase" className="relative min-h-[150vh] overflow-hidden">
+        <section id="showcase" className="relative min-h-[150vh] overflow-hidden pb-[2vw]">
             <div className="media relative overflow-hidden">
                 <video
                     src="/videos/game.mp4"
